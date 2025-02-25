@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Convertissez des images entre différents formats rapidement et efficacement. Supporte JPG, PNG, WebP, PDF et la compression d'images.">
+    <meta name="keywords" content="convertisseur d'images, JPG vers PNG, PNG vers JPG, compression d'images, convertisseur WebP, convertisseur PDF">
+    <title>ImageMaster - Outils de Conversion d'Images en Ligne</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --gradient-start: #667eea;
+            --gradient-end: #764ba2;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f8f9fa;
+        }
+
+        .navbar {
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .navbar-brand i {
+            margin-right: 8px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8) !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 15px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: none;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 1.5rem;
+            text-decoration: none !important;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            transition: height 0.3s ease;
+        }
+
+        .tool-card:hover::before {
+            height: 8px;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+
+        .tool-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin: 1rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .tool-card:hover .tool-icon {
+            color: var(--gradient-end);
+        }
+
+        .card-body h3,
+        .card-body p {
+            text-decoration: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .tool-card {
+                margin: 0 15px 1.5rem;
+            }
+        }
+
+        footer {
+            background: var(--secondary-color);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 5rem;
+        }
+
+        .footer-link {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- En-tête -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-magic"></i> ImageMaster
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="about.html">À Propos</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="tools.html">Outils</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu Principal -->
+    <div class="container my-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold mb-3">Transformez Vos Images</h1>
+            <p class="lead text-muted">Convertissez entre les formats instantanément avec nos outils puissants</p>
+        </div>
+
+        <!-- Grille d'Outils -->
+        <div class="row g-4">
+            <!-- Convertisseur Universel -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <a href="image-converter.html" class="card tool-card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-exchange-alt tool-icon"></i>
+                        <h3 class="h5 fw-bold mb-3">Convertisseur Universel</h3>
+                        <p class="text-muted">Conversion entre tous les formats d'images</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- JPG vers PNG -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <a href="jpg-to-png.html" class="card tool-card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-file-image tool-icon"></i>
+                        <h3 class="h5 fw-bold mb-3">JPG vers PNG</h3>
+                        <p class="text-muted">Convertir des images JPEG en format PNG</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- PNG vers JPG -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <a href="png-to-jpg.html" class="card tool-card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-file-export tool-icon"></i>
+                        <h3 class="h5 fw-bold mb-3">PNG vers JPG</h3>
+                        <p class="text-muted">Convertir des images PNG en format JPEG</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Compression d'Image -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <a href="image-compress.html" class="card tool-card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-compress-alt tool-icon"></i>
+                        <h3 class="h5 fw-bold mb-3">Compression d'Image</h3>
+                        <p class="text-muted">Réduire la taille sans perte de qualité</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- JPG vers WebP -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <a href="jpg-to-webp.html" class="card tool-card text-center h-100">
+                    <div class="card-body">
+                        <i class="fab fa-chrome tool-icon"></i>
+                        <h3 class="h5 fw-bold mb-3">JPG vers WebP</h3>
+                        <p class="text-muted">Convertir au format WebP moderne</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- JPG vers PDF -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <a href="jpg-to-pdf.html" class="card tool-card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-file-pdf tool-icon"></i>
+                        <h3 class="h5 fw-bold mb-3">JPG vers PDF</h3>
+                        <p class="text-muted">Créer des documents PDF à partir d'images</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pied de page -->
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h4 class="mb-3">ImageMaster</h4>
+                    <p>Outils professionnels de conversion d'images depuis 2023</p>
+                </div>
+                <div class="col-lg-2 col-6">
+                    <h5 class="mb-3">Outils</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="image-converter.html" class="footer-link">Convertisseur Universel</a></li>
+                        <li class="mb-2"><a href="jpg-to-png.html" class="footer-link">JPG vers PNG</a></li>
+                        <li class="mb-2"><a href="png-to-jpg.html" class="footer-link">PNG vers JPG</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-6">
+                    <h5 class="mb-3">Entreprise</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="about.html" class="footer-link">À Propos</a></li>
+                        <li class="mb-2"><a href="sitemap.html" class="footer-link">Plan du Site</a></li>
+                        <li class="mb-2"><a href="contact.html" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="mb-3">Mentions Légales</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="terms.html" class="footer-link">Conditions d'Utilisation</a></li>
+                        <li class="mb-2"><a href="privacy.html" class="footer-link">Politique de Confidentialité</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; Made by sainskdev ❤️ 2025 ImageMaster. Tous droits réservés.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="footer-link me-2"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="footer-link me-2"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="footer-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file.type.startsWith('image/')) {
+                    alert('Veuillez sélectionner un fichier image');
+                    input.value = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
