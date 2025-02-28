@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertisseur PDF en JPG gratuit en ligne</title>
+    <meta name="description" content="Convertissez vos PDF en images JPG en ligne gratuitement avec une résolution et qualité personnalisables.">
+    <meta name="keywords" content="PDF en JPG, convertisseur gratuit, outil en ligne, convertisseur PDF">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Styles personnalisés pour l'interface moderne */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        #sideMenu {
+            background-color: #ffffff;
+            padding: 20px;
+            height: 100vh;
+            border-right: 1px solid #e0e0e0;
+        }
+        #sideMenu .list-group-item {
+            border: none;
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+        #sideMenu .list-group-item:hover {
+            background-color: #f1f3f5;
+        }
+        #sideMenu .active {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+        .content-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            padding: 30px;
+        }
+        .content-section.active {
+            display: block;
+            opacity: 1;
+        }
+        .img-fluid {
+            max-height: 200px;
+            object-fit: contain;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        footer {
+            background-color: #ffffff;
+            border-top: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <!-- En-tête -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">Convertir PDF en JPG</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sideMenu" aria-controls="sideMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Accueil</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Menu latéral -->
+            <div class="col-md-3 collapse d-md-block" id="sideMenu">
+                <h5 class="mt-3">Outils</h5>
+                <div class="list-group">
+                    <a href="#home" class="list-group-item list-group-item-action"><i class="fas fa-file-pdf me-2"></i>Convertisseur JPG en PDF</a>
+                    <!-- Ajouter d'autres outils ici -->
+                </div>
+            </div>
+
+            <!-- Zone principale -->
+            <div class="col-md-9">
+                <!-- Section Accueil avec convertisseur -->
+                <div id="home" class="content-section active">
+                    <h2>Convertisseur PDF en JPG</h2>
+                    <p>Téléchargez votre PDF et convertissez-le en images JPG avec des paramètres personnalisables.</p>
+                    <form id="converterForm" class="bg-light p-4 rounded shadow-sm">
+                        <div class="mb-3">
+                            <label for="pdfFile" class="form-label">Sélectionner un fichier PDF</label>
+                            <input type="file" class="form-control" id="pdfFile" accept=".pdf" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="resolution" class="form-label">Résolution</label>
+                            <select class="form-select" id="resolution">
+                                <option value="1">Basse (72 DPI)</option>
+                                <option value="2.083">Moyenne (150 DPI)</option>
+                                <option value="4.166">Haute (300 DPI)</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="quality" class="form-label">Qualité JPEG : <span id="qualityValue">80</span>%</label>
+                            <input type="range" class="form-range" id="quality" min="0" max="100" value="80">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Convertir</button>
+                    </form>
+                    <div id="results" class="mt-4 row"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pied de page -->
+    <footer class="text-center py-3 mt-4">
+        <p>© sainskdev mode with ❤️ 2025 Convertir PDF en JPG. Tous droits réservés.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Configuration du worker pdf.js
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
+
+        // Logique de navigation
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            const section = document.getElementById(sectionId) || document.getElementById('home');
+            section.classList.add('active');
+        }
+
+        function updateActiveLink() {
+            const sectionId = location.hash.substring(1) || 'home';
+            document.querySelectorAll('#sideMenu a').forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + sectionId);
+            });
+        }
+
+        window.addEventListener('hashchange', () => {
+            showSection(location.hash.substring(1));
+            updateActiveLink();
+        });
+
+        // Chargement initial
+        showSection(location.hash.substring(1) || 'home');
+        updateActiveLink();
+
+        // Mise à jour du curseur de qualité
+        document.getElementById('quality').addEventListener('input', function() {
+            document.getElementById('qualityValue').textContent = this.value;
+        });
+
+        // Conversion PDF en JPG
+        document.getElementById('converterForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const fileInput = document.getElementById('pdfFile');
+            const resolution = parseFloat(document.getElementById('resolution').value);
+            const quality = parseInt(document.getElementById('quality').value) / 100;
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = '<p class="text-muted">Conversion en cours... Veuillez patienter.</p>';
+
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                resultsContainer.innerHTML = '';
+
+                for (let i = 1; i <= pdf.numPages; i++) {
+                    const page = await pdf.getPage(i);
+                    const viewport = page.getViewport({ scale: resolution });
+                    const canvas = document.createElement('canvas');
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    const context = canvas.getContext('2d');
+                    await page.render({ canvasContext: context, viewport: viewport }).promise;
+                    const imgData = canvas.toDataURL('image/jpeg', quality);
+
+                    const img = document.createElement('img');
+                    img.src = imgData;
+                    img.className = 'img-fluid';
+
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = imgData;
+                    downloadLink.download = `page_${i}.jpg`;
+                    downloadLink.className = 'btn btn-outline-primary mt-2';
+                    downloadLink.textContent = `Télécharger la page ${i}`;
+
+                    const div = document.createElement('div');
+                    div.className = 'col-md-4 mb-4';
+                    div.appendChild(img);
+                    div.appendChild(downloadLink);
+                    resultsContainer.appendChild(div);
+                }
+            } catch (error) {
+                resultsContainer.innerHTML = `<p class="text-danger">Erreur : ${error.message}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
